@@ -24,14 +24,13 @@ import ru.bmstu.gateway.dto.converter.ReservationConverter;
 import javax.annotation.Resource;
 import javax.websocket.server.PathParam;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 import static ru.bmstu.gateway.dto.converter.UserInfoResponseConverter.createUserInfoResponse;
 
 @Slf4j
 @RestController
-@RequestMapping("api/v1")
+@RequestMapping({"api/v1", ""})
 public class GatewayController {
     @Resource
     private WebClient webClient;
@@ -39,6 +38,12 @@ public class GatewayController {
     @Autowired
     private AppParams appParams;
 
+    @GetMapping(value = "/manage/health", produces = "application/json")
+    public ResponseEntity<?> isAlive() {
+        return ResponseEntity
+                .ok()
+                .build();
+    }
 
     @GetMapping(value = "/hotels", produces = "application/json")
     public ResponseEntity<?> getHotels(@PathParam(value = "page") Integer page,

@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.bmstu.loyaltyapp.dto.LoyaltyIntoResponse;
-import ru.bmstu.loyaltyapp.dto.enums.StatusEnum;
 import ru.bmstu.loyaltyapp.service.LoyaltyService;
 
 import javax.websocket.server.PathParam;
@@ -15,9 +14,16 @@ import javax.websocket.server.PathParam;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/v1/loyalty")
+@RequestMapping({"api/v1/loyalty", ""})
 public class LoyaltyController {
     private final LoyaltyService loyaltyService;
+
+    @GetMapping(value = "/manage/health", produces = "application/json")
+    public ResponseEntity<?> isAlive() {
+        return ResponseEntity
+                .ok()
+                .build();
+    }
 
     @GetMapping(produces = "application/json")
     public ResponseEntity<?> getDiscountByUsername(@RequestHeader(value = "X-User-Name") String username) {
