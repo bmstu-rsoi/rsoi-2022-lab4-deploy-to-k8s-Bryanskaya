@@ -1,8 +1,8 @@
 host:
   service:
-    hotel: "reservationapp"
-    loyalty: "loyaltyapp"
-    payment: "paymentapp"
+    hotel: "reservation-service"
+    loyalty: "loyalty-service"
+    payment: "payment-service"
 
 path:
   service:
