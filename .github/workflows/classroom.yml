@@ -73,7 +73,7 @@ jobs:
           kubectl config set-credentials userRole --token="${{ secrets.KUBE_TOKEN }}"
           kubectl config set-context default --cluster=rsoi-2022-lab4-cluster --user=userRole
           kubectl config use-context default
-          cd k8s && helm upgrade --install service-lab4 k8s/rsoi4-chart
+          helm upgrade --install service-lab4 k8s/rsoi4-chart
 
       - name: Run API Tests
         uses: matt-ball/newman-action@master
