@@ -66,7 +66,7 @@ jobs:
           
       - name: Push images
         run: |
-          cd ../../srcipts
+          cd ./srcipts
           chmod +x create-push-images.sh
           ./create-push-images.sh
 
