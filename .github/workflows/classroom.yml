@@ -1,7 +1,4 @@
 name: GitHub Classroom Workflow
-env:
-    DOCKERHUB_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
-    DOCKERHUB_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}
     
 on:
   push:
@@ -69,8 +66,14 @@ jobs:
           cd ./srcipts
           chmod +x create-push-images.sh
           ./create-push-images.sh
-
-      # TODO build, publish to docker hub, deploy to k8s
+          
+      - name: Deploy to k8s
+        run: |
+          kubectl config set-cluster rsoi-2022-lab4-cluster --server="$KUBE_URL" --insecure-skip-tls-verify=true
+          kubectl config set-credentials userRole --token="$KUBE_TOKEN"
+          kubectl config set-context default --cluster=rsoi-2022-lab4-cluster --user=userRole
+          kubectl config use-context default
+          cd k8s && helm upgrade --install service-lab4 k8s/rsoi4-chart
 
       - name: Run API Tests
         uses: matt-ball/newman-action@master
