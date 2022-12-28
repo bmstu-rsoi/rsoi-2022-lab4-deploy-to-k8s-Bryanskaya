@@ -69,8 +69,8 @@ jobs:
           
       - name: Deploy to k8s
         run: |
-          kubectl config set-cluster rsoi-2022-lab4-cluster --server="$KUBE_URL" --insecure-skip-tls-verify=true
-          kubectl config set-credentials userRole --token="$KUBE_TOKEN"
+          kubectl config set-cluster rsoi-2022-lab4-cluster --server="${{ secrets.KUBE_URL }}" --insecure-skip-tls-verify=true
+          kubectl config set-credentials userRole --token="${{ secrets.KUBE_TOKEN }}"
           kubectl config set-context default --cluster=rsoi-2022-lab4-cluster --user=userRole
           kubectl config use-context default
           cd k8s && helm upgrade --install service-lab4 k8s/rsoi4-chart
